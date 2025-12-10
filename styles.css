@@ -1,6 +1,9 @@
 :root {
-    --fuente-titulos: "obviously-wide", sans-serif;
-    --fuente-texto: "logic-monospace", monospace;
+    --fuente-titulos1: "protipo-condensed-extrabold", sans-serif;
+    --fuente-titulos2: "protipo-condensed-bold", sans-serif;
+    --fuente-texto1: "protipo-semibold", sans-serif;
+    --fuente-texto2: "protipo-regular", sans-serif;
+    --fuente-botones1: "protipo-compact-semibold", sans-serif;
     --negro: #000;
     --blanco: #fff;
     --rojo: #DF0029;
@@ -18,13 +21,13 @@ html {
 }
 
 body {
-    font-family: var(--fuente-texto);
-    background-color: var(--beige);
+    font-family: var(--fuente-texto2);
+    background-color: var(--blanco);
     color: var(--negro);
 }
 
 p {
-    font-family: var(--fuente-texto);
+    font-family: var(--fuente-texto2);
     font-weight: 400;
 }
 
@@ -289,7 +292,6 @@ body.menu-open {
     .nav-menu {
         background: var(--rojo);
         color: var(--blanco);
-        border-color: var(--blanco);
     }
 
     .hamburger {
@@ -306,92 +308,114 @@ body.menu-open {
     scroll-margin-top: 90px;
 }
 
-/* --- NEW CARD AND CAROUSEL STYLES --- */
-
-/* Wrapper handles responsiveness and centers the carousel */
-.carousel-wrapper {
-    position: relative;
-    max-width: 450px; /* Width of the card stack */
-    margin: 40px auto;
-    overflow: hidden; 
+/* HERO SECTION */
+.hero-section {
+    padding: 80px 0;
+    margin-bottom: 60px;
 }
 
-/* Viewport defines the visible area (3 cards height) */
+.hero-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 30px;
+}
+
+.hero-title {
+    font-family: var(--fuente-titulos1);
+    font-size: clamp(32px, 5vw, 64px);
+    font-weight: 900;
+    line-height: 1.1;
+    text-transform: uppercase;
+    margin-bottom: 30px;
+    max-width: 600px;
+}
+
+.hero-description {
+    font-family: var(--fuente-texto1);
+    font-size: clamp(14px, 1.5vw, 18px);
+    line-height: 1.6;
+    max-width: 500px;
+    color: var(--negro);
+}
+
+/* NEWS CAROUSEL */
+.articulo-container {
+    padding: 60px 0;
+    background-color: var(--blanco);
+    box-shadow: #000;
+}
+
+.carousel-wrapper {
+    position: relative;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 80px;
+}
+
 .carousel-viewport {
-    /* Height will be set by JS dynamically to fit 3 cards perfectly */
-    height: 100%; 
     overflow: hidden;
 }
 
-/* Track moves horizontally */
 .carousel-track {
     display: flex;
-    flex-direction: row; /* CRITICAL: Change to horizontal */
-    width: fit-content;
-    height: 100%; /* Track takes full viewport height */
+    gap: 30px;
     transition: transform 0.5s ease-in-out;
 }
 
 .articulo-card {
-     flex: 0 0 calc(33.3333% - 20px); 
-    width: calc(33.3333% - 20px);
-    margin-bottom: 30px; /* Space between visible cards */
-    display: flex;
-        margin: 0 10px; /* 10px margin on left and right for spacing */
-    flex-direction: column;
+    flex: 0 0 calc(33.333% - 20px);
     background-color: var(--blanco);
     overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .articulo-card img {
     width: 100%;
-    height: 180px; 
+    height: 250px;
     object-fit: cover;
-    background-color: #f0f0f0; 
 }
 
 .card-content {
-    padding: 20px 24px;
+    padding: 24px;
 }
 
-/* Red Tag Style */
 .articulo-tag {
     display: inline-block;
-    background-color: var(--rojo); 
+    background-color: var(--rojo);
     color: var(--blanco);
-    font-family: var(--fuente-texto);
-    font-size: 14px;
+    font-family: var(--fuente-titulos2);
+    font-size: 12px;
     font-weight: bold;
     padding: 6px 12px;
-    border-radius: 4px;
-    margin-bottom: 20px;
+    border-radius: 3px;
+    margin-bottom: 16px;
     text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
 .card-title {
-    font-family: var(--fuente-h1);
-    font-size: 32px;
+    font-family: var(--fuente-titulos2);
+    font-size: 24px;
     font-weight: 900;
-    line-height: 1.1;
+    line-height: 1.2;
     margin-bottom: 12px;
     color: var(--negro);
     text-transform: uppercase;
 }
 
 .card-description {
-    font-size: 16px;
+    font-size: 14px;
     color: var(--negro);
-    line-height: 1.5;
+    line-height: 1.6;
     margin-bottom: 20px;
 }
 
-/* Discover More Link Style */
 .discover-more {
-    display: flex;
+    display: inline-flex;
     align-items: center;
     text-decoration: none;
-    font-family: var(--fuente-texto);
-    font-size: 16px;
+    font-family: var(--fuente-texto2);
+    font-size: 14px;
     font-weight: bold;
     color: var(--negro);
     letter-spacing: 1px;
@@ -405,7 +429,6 @@ body.menu-open {
 /* CAROUSEL ARROWS */
 .carousel-arrow {
     position: absolute;
-    left: -70px; 
     top: 50%;
     transform: translateY(-50%);
     background: var(--rojo);
@@ -416,16 +439,242 @@ body.menu-open {
     z-index: 10;
     border-radius: 50%;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    transition: background-color 0.3s, transform 0.1s;
+    transition: background-color 0.3s;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .carousel-arrow:hover {
     background-color: #a0001f;
 }
 
+.left-arrow {
+    left: 10px;
+}
+
 .right-arrow {
-    left: auto;
-    right: -70px; 
+    right: 10px;
+}
+
+/* QUE HACER SECTION */
+.que-hacer-section {
+    padding: 80px 0;
+}
+
+.section-title {
+    font-family: var(--fuente-titulos1);
+    font-size: clamp(28px, 4vw, 48px);
+    font-weight: 900;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+    line-height: 1.1;
+}
+
+.section-description {
+    font-family: var(--fuente-texto1);
+    font-size: clamp(14px, 1.5vw, 16px);
+    line-height: 1.6;
+    margin-bottom: 50px;
+    max-width: 900px;
+}
+
+.actividades-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.actividad-item {
+    text-align: center;
+}
+
+.actividad-image {
+    width: 100%;
+    aspect-ratio: 1;
+    background: linear-gradient(135deg, #e0e0e0 0%, #f5f5f5 100%);
+    margin-bottom: 16px;
+    border-radius: 4px;
+}
+
+.actividad-item h3 {
+    font-family: var(--fuente-titulos2);
+    font-size: 18px;
+    font-weight: 900;
+    text-transform: uppercase;
+    color: var(--negro);
+}
+
+/* PATRIMONIO SECTION */
+.patrimonio-section {
+    background-color: var(--rojo);
+    color: var(--blanco);
+    padding: 80px 0;
+}
+
+.patrimonio-content {
+    max-width: 800px;
+}
+
+.section-title-white {
+    font-family: var(--fuente-titulos1);
+    font-size: clamp(28px, 4vw, 48px);
+    font-weight: 900;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+    color: var(--blanco);
+    line-height: 1.1;
+}
+
+.patrimonio-text {
+    font-family: var(--fuente-texto1);
+    font-size: clamp(14px, 1.5vw, 16px);
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+/* VISITAS IMPRESCINDIBLES */
+.visitas-section {
+    padding: 80px 0;
+    background-color: var(--blanco);
+}
+
+.visitas-carousel-wrapper {
+    position: relative;
+    margin-top: 40px;
+    padding: 0 60px;
+}
+
+.visitas-carousel {
+    display: flex;
+    gap: 30px;
+    overflow: hidden;
+}
+
+.visita-card {
+    flex: 0 0 calc(33.333% - 20px);
+}
+
+.visita-image {
+    width: 100%;
+    aspect-ratio: 4/3;
+    background: linear-gradient(135deg, #e0e0e0 0%, #f5f5f5 100%);
+    margin-bottom: 16px;
+    border-radius: 4px;
+}
+
+.visita-card h3 {
+    font-family: var(--fuente-titulos2);
+    font-size: 20px;
+    font-weight: 900;
+    text-transform: uppercase;
+    color: var(--negro);
+    line-height: 1.2;
+}
+
+/* PROXIMOS EVENTOS */
+.eventos-section {
+    padding: 80px 0;
+    background-color: var(--blanco);
+}
+
+.eventos-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    margin-top: 40px;
+}
+
+.evento-placeholder {
+    aspect-ratio: 16/10;
+    background: linear-gradient(135deg, #e0e0e0 0%, #f5f5f5 100%);
+    border-radius: 4px;
+}
+
+.evento-destacado {
+    background-color: var(--rojo);
+    color: var(--blanco);
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.evento-tag {
+    display: inline-block;
+    background-color: var(--blanco);
+    color: var(--rojo);
+    font: var(--fuente-titulos2);
+    font-size: 12px;
+    font-weight: bold;
+    padding: 6px 12px;
+    border-radius: 3px;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    width: fit-content;
+}
+
+.evento-destacado h3 {
+    font-family: var(--fuente-titulos2);
+    font-size: 28px;
+    font-weight: 900;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    line-height: 1.2;
+}
+
+.evento-destacado p {
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 24px;
+}
+
+.evento-destacado .discover-more {
+    color: var(--blanco);
+}
+
+.evento-destacado .discover-more:hover {
+    opacity: 0.8;
+}
+
+/* FUTURO VERDE */
+.futuro-verde-section {
+    padding: 80px 0;
+    background-color: var(--beige);
+}
+
+.futuro-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+}
+
+.futuro-chart {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.Chart {
+    aspect-ratio: 1;
+    background: linear-gradient(135deg, #e0e0e0 0%, #f5f5f5 100%);
+    border-radius: 4px;
+}
+
+.futuro-image:first-child {
+    grid-column: 1 / -1;
+    aspect-ratio: 2/1;
+}
+
+.futuro-content p {
+    font-size: clamp(14px, 1.5vw, 16px);
+    line-height: 1.6;
+    margin-top: 20px;
 }
 
 /* FOOTER */
@@ -539,5 +788,118 @@ body.menu-open {
     .footer .media-logos img,
     .footer .support-logos img {
         height: 22px;
+    }
+}
+
+/* RESPONSIVE */
+@media (max-width: 1024px) {
+    .actividades-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    
+    .futuro-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .hamburger {
+        display: flex;
+        position: relative;
+        width: 28px;
+        height: 22px;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        z-index: 1002;
+    }
+
+    .hamburger span {
+        position: absolute;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: var(--blanco);
+        border-radius: 2px;
+        transition: top 180ms ease, transform 180ms ease, opacity 160ms ease;
+    }
+
+    .hamburger span:nth-child(1) {
+        top: 0;
+    }
+
+    .hamburger span:nth-child(2) {
+        top: 10px;
+    }
+
+    .hamburger span:nth-child(3) {
+        top: 20px;
+    }
+
+    .hamburger.active span:nth-child(1) {
+        top: 10px;
+        transform: rotate(45deg);
+    }
+
+    .hamburger.active span:nth-child(2) {
+        opacity: 0;
+    }
+
+    .hamburger.active span:nth-child(3) {
+        top: 10px;
+        transform: rotate(-45deg);
+    }
+
+    body.menu-open {
+        overflow: hidden;
+    }
+
+    .nav-menu {
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        width: 80%;
+        max-width: 400px;
+        height: 100vh;
+        background-color: var(--rojo);
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 80px 24px 24px;
+        gap: 20px;
+        box-shadow: -10px 0 20px rgba(0, 0, 0, 0.35);
+        transform: translateX(100%);
+        transition: transform 220ms ease;
+        z-index: 900;
+    }
+
+    .nav-menu.active {
+        transform: translateX(0);
+    }
+
+    .carousel-track {
+        flex-direction: column;
+    }
+
+    .articulo-card {
+        flex: 0 0 100%;
+    }
+
+    .actividades-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .eventos-grid,
+    .footer-top .row {
+        grid-template-columns: 1fr;
+    }
+
+    .visitas-carousel {
+        flex-direction: column;
+    }
+
+    .visita-card {
+        flex: 0 0 100%;
     }
 }
