@@ -1,150 +1,105 @@
-// hamburger menu and overlay functionality
-document.addEventListener('DOMContentLoaded', function () {
-    const hamburger = document.querySelector('.hamburger');
-    const nav = document.querySelector('nav');
-    const overlay = document.querySelector('.overlay');
-    const body = document.body;
+// ========================================
+// HAMBURGER MENU with jQuery
+// ========================================
+$(document).ready(function () {
+    const $hamburger = $('#hamburger');
+    const $navMenu = $('#navMenu');
+    const $body = $('body');
 
-    // Function to open menu
-    function openMenu() {
-        hamburger.classList.add('active');
-        nav.classList.add('active');
-        overlay.classList.add('active');
-        body.classList.add('menu-open');
-    }
-
-    // Function to close menu
-    function closeMenu() {
-        hamburger.classList.remove('active');
-        nav.classList.remove('active');
-        overlay.classList.remove('active');
-        body.classList.remove('menu-open');
-    }
-
-    // Toggle menu on hamburger click
-    if (hamburger) {
-        hamburger.addEventListener('click', function () {
-            if (hamburger.classList.contains('active')) {
-                closeMenu();
-            } else {
-                openMenu();
-            }
-        });
-    }
-
-    // Close menu when overlay is clicked
-    if (overlay) {
-        overlay.addEventListener('click', function () {
-            closeMenu();
-        });
-    }
-
-    // Close menu when a navigation link is clicked
-    const navLinks = document.querySelectorAll('nav ul li a');
-    navLinks.forEach(link => {
-        link.addEventListener('click', function () {
-            closeMenu();
-        });
-    });
-
-    // Close menu when pressing escape key
-    document.addEventListener('keydown', function (e) {
-        if (e.key === 'Escape' && hamburger.classList.contains('active')) {
-            closeMenu();
-        }
-    });
-
-    // Basic function to scroll to sections
-    function scrollToSection(id) {
-        const element = document.getElementById(id);
-        if (element) {
-            element.scrollIntoView({ behavior: 'smooth' });
-        }
-    }
-});
-
-// Smooth scrolling for anchor links
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-            target.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
-        }
-    });
-});
-
-
-// Hamburger Menu Toggle (guard for pages without navbar)
-const hamburger = document.getElementById('hamburger');
-const navMenu = document.getElementById('navMenu');
-
-if (hamburger && navMenu) {
     function setMenuState(isOpen) {
-        hamburger.classList.toggle('active', isOpen);
-        navMenu.classList.toggle('active', isOpen);
-        document.body.classList.toggle('menu-open', isOpen);
-        // Accessibility/escape behavior
-        hamburger.setAttribute('aria-expanded', String(isOpen));
-        hamburger.setAttribute('aria-label', isOpen ? 'Cerrar menú' : 'Abrir menú');
+        $hamburger.toggleClass('active', isOpen);
+        $navMenu.toggleClass('active', isOpen);
+        $body.toggleClass('menu-open', isOpen);
+        $hamburger.attr('aria-expanded', String(isOpen));
+        $hamburger.attr('aria-label', isOpen ? 'Cerrar menú' : 'Abrir menú');
     }
 
-    hamburger.addEventListener('click', () => {
-        const willOpen = !navMenu.classList.contains('active');
+    // Toggle menu on click
+    $hamburger.on('click', function() {
+        const willOpen = !$navMenu.hasClass('active');
         setMenuState(willOpen);
     });
 
-    // Keyboard support: Enter/Space toggles; Escape closes
-    hamburger.addEventListener('keydown', (e) => {
+    // Keyboard support
+    $hamburger.on('keydown', function(e) {
         if (e.key === 'Enter' || e.key === ' ') {
             e.preventDefault();
-            const willOpen = !navMenu.classList.contains('active');
+            const willOpen = !$navMenu.hasClass('active');
             setMenuState(willOpen);
         }
     });
 
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && navMenu.classList.contains('active')) {
+    // Close on Escape key
+    $(document).on('keydown', function(e) {
+        if (e.key === 'Escape' && $navMenu.hasClass('active')) {
             setMenuState(false);
         }
     });
 
-    // Close mobile menu when clicking on a link
-    const navLinks = navMenu.querySelectorAll('a');
-    navLinks.forEach(link => {
-        link.addEventListener('click', () => setMenuState(false));
+    // Close when clicking nav links
+    $navMenu.find('a').on('click', function() {
+        setMenuState(false);
     });
 
-    // Close mobile menu when clicking outside
-    document.addEventListener('click', (e) => {
-        if (!hamburger.contains(e.target) && !navMenu.contains(e.target)) {
-            setMenuState(false);
+    // Close when clicking outside
+    $(document).on('click', function(e) {
+        if (!$(e.target).closest('#hamburger, #navMenu').length) {
+            if ($navMenu.hasClass('active')) {
+                setMenuState(false);
+            }
         }
     });
-}
+});
 
+// ========================================
+// SMOOTH SCROLLING with jQuery
+// ========================================
+$(document).ready(function() {
+    $('a[href*="#"]').on('click', function(e) {
+        const href = $(this).attr('href');
+        
+        // Only handle same-page anchor links
+        if (href.includes('#') && (href.startsWith('#') || href.includes(window.location.pathname.split('/').pop()))) {
+            e.preventDefault();
+            
+            const hash = href.includes('#') ? href.split('#')[1] : '';
+            const $target = $('#' + hash);
+            
+            if ($target.length) {
+                const navbarHeight = $('.navbar').outerHeight() || 0;
+                const targetPosition = $target.offset().top - navbarHeight;
+                
+                $('html, body').animate({
+                    scrollTop: targetPosition
+                }, 500);
+                
+                // Update URL
+                if (history.pushState) {
+                    history.pushState(null, null, '#' + hash);
+                }
+            }
+        }
+    });
+});
 
-// Etiquetas para los últimos 10 años (2015-2025)
+// ========================================
+// CHART.JS (No jQuery needed here)
+// ========================================
 const etiquetas = [
     '2015', '2016', '2017', '2018', '2019', '2020', '2021', '2022', '2023', '2024', '2025'
 ];
 
-// Datos: CO2 emitido por año (mostrando reducción progresiva con variaciones)
 const datos = {
     labels: etiquetas,
     datasets: [{
         label: 'CO₂ emitido (toneladas)',
-        data: [100, 95, 88, 82, 75, 68, 63, 55, 49, 42, 35], // Valores decrecientes con variaciones irregulares
-        backgroundColor: 'rgba(255, 0, 0, 0.5)', // Rojo semitransparente
-        borderColor: 'rgb(255, 0, 0)',           // Rojo sólido
+        data: [100, 94, 80, 78, 75, 60, 63, 50, 48, 30, 20],
+        backgroundColor: 'rgba(255, 0, 0, 0.5)',
+        borderColor: 'rgb(255, 0, 0)',
         borderWidth: 1
     }]
 };
 
-// Configuración del gráfico
 const config = {
     type: 'bar',
     data: datos,
@@ -169,294 +124,266 @@ const config = {
     }
 };
 
-// Renderizar el gráfico
-window.onload = function() {
+$(window).on('load', function() {
     const ctx = document.getElementById('Chart');
     if (ctx) {
         new Chart(ctx, config);
     }
-};
+});
 
-// --- ADDED: Card Carousel Logic ---
-
-document.addEventListener('DOMContentLoaded', function() {
-    const track = document.getElementById('cardCarouselTrack');
-    const leftArrow = document.querySelector('.articulo-container .left-arrow');
-    const rightArrow = document.querySelector('.articulo-container .right-arrow');
-    const viewport = document.querySelector('.articulo-container .carousel-viewport');
+// ========================================
+// NEWS CAROUSEL with jQuery
+// ========================================
+$(document).ready(function() {
+    const $track = $('#cardCarouselTrack');
+    const $leftArrow = $('.articulo-container .left-arrow');
+    const $rightArrow = $('.articulo-container .right-arrow');
+    const $viewport = $('.articulo-container .carousel-viewport');
     
-    if (!track || !leftArrow || !rightArrow || !viewport) return; 
+    if (!$track.length || !$leftArrow.length || !$rightArrow.length || !$viewport.length) return;
 
-    const cards = track.querySelectorAll('.articulo-card');
-    const totalCards = cards.length;
-    let currentIndex = 0;
+    const $cards = $track.find('.articulo-card');
+    const totalCards = $cards.length;
+    if (totalCards === 0) return;
     
-    // Cards now have fixed height in CSS, no need to calculate
-    function setEqualHeight() {
-        // Fixed height is set in CSS, no dynamic calculation needed
-        return;
+    // Clone cards for infinite loop
+    const cardsPerView = Math.floor(($viewport.width() + 30) / ($cards.first().outerWidth() + 30)) || 1;
+    const clonesToAdd = Math.max(cardsPerView, 2);
+    
+    // Clone first cards and append to end
+    for (let i = 0; i < clonesToAdd; i++) {
+        const $clone = $cards.eq(i).clone().addClass('clone');
+        $track.append($clone);
     }
     
-    // Calculate cards per view based on screen size
-    function getCardsPerView() {
-        if (cards.length === 0) return 1;
-        const viewportWidth = viewport.offsetWidth;
-        const cardWidth = cards[0].offsetWidth;
-        const gap = 30; // gap between cards
-        return Math.floor((viewportWidth + gap) / (cardWidth + gap)) || 1;
+    // Clone last cards and prepend to beginning
+    for (let i = totalCards - clonesToAdd; i < totalCards; i++) {
+        const $clone = $cards.eq(i).clone().addClass('clone');
+        $track.prepend($clone);
     }
-
-    function updateCarousel() {
-        if (cards.length === 0) return;
+    
+    // Re-query all cards including clones
+    const $allCards = $track.find('.articulo-card');
+    const cardWidth = $allCards.first().outerWidth();
+    const gap = 30;
+    
+    // Start at the first real card
+    let currentIndex = clonesToAdd;
+    $track.css('transition', 'transform 0.5s ease');
+    
+    function updateCarousel(instant = false) {
+        if (instant) {
+            $track.css('transition', 'none');
+        } else {
+            $track.css('transition', 'transform 0.5s ease');
+        }
         
-        const cardsPerView = getCardsPerView();
-        const maxIndex = Math.max(0, totalCards - cardsPerView);
-        
-        // Calculate the translation distance (horizontal)
-        const cardWidth = cards[0].offsetWidth;
-        const gap = 30; // gap between cards
         const offset = -currentIndex * (cardWidth + gap);
-        track.style.transform = `translateX(${offset}px)`;
+        $track.css('transform', `translateX(${offset}px)`);
         
-        // Update arrow visibility
-        leftArrow.disabled = currentIndex === 0;
-        rightArrow.disabled = currentIndex >= maxIndex;
-        
-        if (leftArrow.disabled) {
-            leftArrow.style.opacity = '0.3';
-            leftArrow.style.cursor = 'not-allowed';
-        } else {
-            leftArrow.style.opacity = '1';
-            leftArrow.style.cursor = 'pointer';
-        }
-        
-        if (rightArrow.disabled) {
-            rightArrow.style.opacity = '0.3';
-            rightArrow.style.cursor = 'not-allowed';
-        } else {
-            rightArrow.style.opacity = '1';
-            rightArrow.style.cursor = 'pointer';
+        $leftArrow.css({ 'opacity': '1', 'cursor': 'pointer' });
+        $rightArrow.css({ 'opacity': '1', 'cursor': 'pointer' });
+    }
+    
+    function jumpToRealCard() {
+        if (currentIndex < clonesToAdd) {
+            currentIndex = totalCards + clonesToAdd;
+            updateCarousel(true);
+            setTimeout(() => updateCarousel(false), 50);
+        } else if (currentIndex >= totalCards + clonesToAdd) {
+            currentIndex = clonesToAdd;
+            updateCarousel(true);
+            setTimeout(() => updateCarousel(false), 50);
         }
     }
 
-    leftArrow.addEventListener('click', () => {
-        if (currentIndex > 0) {
-            currentIndex--;
-            updateCarousel();
-        }
+    $leftArrow.on('click', function() {
+        currentIndex--;
+        updateCarousel();
+        setTimeout(jumpToRealCard, 500);
     });
 
-    rightArrow.addEventListener('click', () => {
-        const cardsPerView = getCardsPerView();
-        const maxIndex = Math.max(0, totalCards - cardsPerView);
-        if (currentIndex < maxIndex) {
-            currentIndex++;
-            updateCarousel();
-        }
+    $rightArrow.on('click', function() {
+        currentIndex++;
+        updateCarousel();
+        setTimeout(jumpToRealCard, 500);
     });
 
-    // Set equal heights and initial setup
-    setEqualHeight();
-    updateCarousel();
+    updateCarousel(true);
+    setTimeout(() => updateCarousel(false), 50);
     
     // Recalculate on window resize
     let resizeTimeout;
-    window.addEventListener('resize', () => {
+    $(window).on('resize', function() {
         clearTimeout(resizeTimeout);
         resizeTimeout = setTimeout(() => {
-            setEqualHeight();
-            // Reset index if current position is invalid after resize
-            const cardsPerView = getCardsPerView();
-            const maxIndex = Math.max(0, totalCards - cardsPerView);
-            if (currentIndex > maxIndex) {
-                currentIndex = maxIndex;
-            }
             updateCarousel();
         }, 250);
     });
 });
 
-// --- Eventos Carousel Logic ---
-
-document.addEventListener('DOMContentLoaded', function() {
-    const eventosTrack = document.getElementById('eventosCarouselTrack');
-    const eventosLeftArrow = document.querySelector('.eventos-section .eventos-arrow.left-arrow');
-    const eventosRightArrow = document.querySelector('.eventos-section .eventos-arrow.right-arrow');
-    const eventosViewport = document.querySelector('.eventos-carousel-viewport');
+// ========================================
+// EVENTOS CAROUSEL with jQuery
+// ========================================
+$(document).ready(function() {
+    const $eventosTrack = $('#eventosCarouselTrack');
+    const $eventosLeftArrow = $('.eventos-section .eventos-arrow.left-arrow');
+    const $eventosRightArrow = $('.eventos-section .eventos-arrow.right-arrow');
+    const $eventosViewport = $('.eventos-carousel-viewport');
     
-    if (!eventosTrack || !eventosLeftArrow || !eventosRightArrow || !eventosViewport) return; 
+    if (!$eventosTrack.length || !$eventosLeftArrow.length || !$eventosRightArrow.length || !$eventosViewport.length) return;
 
-    const eventosCards = eventosTrack.querySelectorAll('.evento-placeholder, .evento-destacado');
-    const totalEventosCards = eventosCards.length;
-    let eventosCurrentIndex = 0;
+    const $eventosCards = $eventosTrack.find('.evento-placeholder, .evento-destacado');
+    const totalEventosCards = $eventosCards.length;
+    if (totalEventosCards === 0) return;
     
-    // Cards now have fixed height in CSS, no need to calculate
-    function setEventosEqualHeight() {
-        // Fixed height is set in CSS, no dynamic calculation needed
-        return;
-    }
+    // Clone first and last cards
+    const $firstCard = $eventosCards.first().clone().addClass('clone');
+    $eventosTrack.append($firstCard);
     
-    // Calculate cards per view based on screen size
-    function getEventosCardsPerView() {
-        // Since cards are full width, always show 1 card per view
-        return 1;
-    }
-
-    function updateEventosCarousel() {
-        if (eventosCards.length === 0) return;
+    const $lastCard = $eventosCards.last().clone().addClass('clone');
+    $eventosTrack.prepend($lastCard);
+    
+    const $allEventosCards = $eventosTrack.find('.evento-placeholder, .evento-destacado');
+    const cardWidth = $allEventosCards.first().outerWidth();
+    
+    let eventosCurrentIndex = 1;
+    $eventosTrack.css('transition', 'transform 0.5s ease');
+    
+    function updateEventosCarousel(instant = false) {
+        if (instant) {
+            $eventosTrack.css('transition', 'none');
+        } else {
+            $eventosTrack.css('transition', 'transform 0.5s ease');
+        }
         
-        const cardsPerView = getEventosCardsPerView();
-        const maxIndex = Math.max(0, totalEventosCards - cardsPerView);
-        
-        // Calculate the translation distance (horizontal)
-        const cardWidth = eventosCards[0].offsetWidth;
         const offset = -eventosCurrentIndex * cardWidth;
-        eventosTrack.style.transform = `translateX(${offset}px)`;
+        $eventosTrack.css('transform', `translateX(${offset}px)`);
         
-        // Update arrow visibility
-        eventosLeftArrow.disabled = eventosCurrentIndex === 0;
-        eventosRightArrow.disabled = eventosCurrentIndex >= maxIndex;
-        
-        if (eventosLeftArrow.disabled) {
-            eventosLeftArrow.style.opacity = '0.3';
-            eventosLeftArrow.style.cursor = 'not-allowed';
-        } else {
-            eventosLeftArrow.style.opacity = '1';
-            eventosLeftArrow.style.cursor = 'pointer';
-        }
-        
-        if (eventosRightArrow.disabled) {
-            eventosRightArrow.style.opacity = '0.3';
-            eventosRightArrow.style.cursor = 'not-allowed';
-        } else {
-            eventosRightArrow.style.opacity = '1';
-            eventosRightArrow.style.cursor = 'pointer';
+        $eventosLeftArrow.css({ 'opacity': '1', 'cursor': 'pointer' });
+        $eventosRightArrow.css({ 'opacity': '1', 'cursor': 'pointer' });
+    }
+    
+    function jumpToRealEventoCard() {
+        if (eventosCurrentIndex === 0) {
+            eventosCurrentIndex = totalEventosCards;
+            updateEventosCarousel(true);
+            setTimeout(() => updateEventosCarousel(false), 50);
+        } else if (eventosCurrentIndex > totalEventosCards) {
+            eventosCurrentIndex = 1;
+            updateEventosCarousel(true);
+            setTimeout(() => updateEventosCarousel(false), 50);
         }
     }
 
-    eventosLeftArrow.addEventListener('click', () => {
-        if (eventosCurrentIndex > 0) {
-            eventosCurrentIndex--;
-            updateEventosCarousel();
-        }
+    $eventosLeftArrow.on('click', function() {
+        eventosCurrentIndex--;
+        updateEventosCarousel();
+        setTimeout(jumpToRealEventoCard, 500);
     });
 
-    eventosRightArrow.addEventListener('click', () => {
-        const cardsPerView = getEventosCardsPerView();
-        const maxIndex = Math.max(0, totalEventosCards - cardsPerView);
-        if (eventosCurrentIndex < maxIndex) {
-            eventosCurrentIndex++;
-            updateEventosCarousel();
-        }
+    $eventosRightArrow.on('click', function() {
+        eventosCurrentIndex++;
+        updateEventosCarousel();
+        setTimeout(jumpToRealEventoCard, 500);
     });
 
-    // Set equal heights and initial setup
-    setEventosEqualHeight();
-    updateEventosCarousel();
+    updateEventosCarousel(true);
+    setTimeout(() => updateEventosCarousel(false), 50);
     
-    // Recalculate on window resize
     let eventosResizeTimeout;
-    window.addEventListener('resize', () => {
+    $(window).on('resize', function() {
         clearTimeout(eventosResizeTimeout);
         eventosResizeTimeout = setTimeout(() => {
-            setEventosEqualHeight();
-            // Reset index if current position is invalid after resize
-            const cardsPerView = getEventosCardsPerView();
-            const maxIndex = Math.max(0, totalEventosCards - cardsPerView);
-            if (eventosCurrentIndex > maxIndex) {
-                eventosCurrentIndex = maxIndex;
-            }
             updateEventosCarousel();
         }, 250);
     });
 });
 
-// --- Visitas Carousel Logic ---
-
-document.addEventListener('DOMContentLoaded', function() {
-    const visitasTrack = document.getElementById('visitasCarouselTrack');
-    const visitasLeftArrow = document.querySelector('.visitas-section .visitas-arrow.left-arrow');
-    const visitasRightArrow = document.querySelector('.visitas-section .visitas-arrow.right-arrow');
-    const visitasViewport = document.querySelector('.visitas-carousel-viewport');
+// ========================================
+// VISITAS CAROUSEL with jQuery
+// ========================================
+$(document).ready(function() {
+    const $visitasTrack = $('#visitasCarouselTrack');
+    const $visitasLeftArrow = $('.visitas-section .visitas-arrow.left-arrow');
+    const $visitasRightArrow = $('.visitas-section .visitas-arrow.right-arrow');
+    const $visitasViewport = $('.visitas-carousel-viewport');
     
-    if (!visitasTrack || !visitasLeftArrow || !visitasRightArrow || !visitasViewport) return; 
+    if (!$visitasTrack.length || !$visitasLeftArrow.length || !$visitasRightArrow.length || !$visitasViewport.length) return;
 
-    const visitasCards = visitasTrack.querySelectorAll('.visita-card');
-    const totalVisitasCards = visitasCards.length;
-    let visitasCurrentIndex = 0;
+    const $visitasCards = $visitasTrack.find('.visita-card');
+    const totalVisitasCards = $visitasCards.length;
+    if (totalVisitasCards === 0) return;
     
-    // Calculate cards per view based on screen size
-    function getVisitasCardsPerView() {
-        if (visitasCards.length === 0) return 1;
-        const viewportWidth = visitasViewport.offsetWidth;
-        const cardWidth = visitasCards[0].offsetWidth;
-        const gap = 30; // gap between cards
-        return Math.floor((viewportWidth + gap) / (cardWidth + gap)) || 1;
+    const viewportWidth = $visitasViewport.width();
+    const cardWidth = $visitasCards.first().outerWidth();
+    const gap = 30;
+    const cardsPerView = Math.floor((viewportWidth + gap) / (cardWidth + gap)) || 1;
+    const clonesToAdd = Math.max(cardsPerView, 2);
+    
+    // Clone first cards and append to end
+    for (let i = 0; i < clonesToAdd; i++) {
+        const $clone = $visitasCards.eq(i).clone().addClass('clone');
+        $visitasTrack.append($clone);
+    }
+    
+    // Clone last cards and prepend to beginning
+    for (let i = totalVisitasCards - clonesToAdd; i < totalVisitasCards; i++) {
+        const $clone = $visitasCards.eq(i).clone().addClass('clone');
+        $visitasTrack.prepend($clone);
+    }
+    
+    const $allVisitasCards = $visitasTrack.find('.visita-card');
+    const newCardWidth = $allVisitasCards.first().outerWidth();
+    
+    let visitasCurrentIndex = clonesToAdd;
+    $visitasTrack.css('transition', 'transform 0.5s ease');
+    
+    function updateVisitasCarousel(instant = false) {
+        if (instant) {
+            $visitasTrack.css('transition', 'none');
+        } else {
+            $visitasTrack.css('transition', 'transform 0.5s ease');
+        }
+        
+        const offset = -visitasCurrentIndex * (newCardWidth + gap);
+        $visitasTrack.css('transform', `translateX(${offset}px)`);
+        
+        $visitasLeftArrow.css({ 'opacity': '1', 'cursor': 'pointer' });
+        $visitasRightArrow.css({ 'opacity': '1', 'cursor': 'pointer' });
+    }
+    
+    function jumpToRealVisitaCard() {
+        if (visitasCurrentIndex < clonesToAdd) {
+            visitasCurrentIndex = totalVisitasCards + clonesToAdd;
+            updateVisitasCarousel(true);
+            setTimeout(() => updateVisitasCarousel(false), 50);
+        } else if (visitasCurrentIndex >= totalVisitasCards + clonesToAdd) {
+            visitasCurrentIndex = clonesToAdd;
+            updateVisitasCarousel(true);
+            setTimeout(() => updateVisitasCarousel(false), 50);
+        }
     }
 
-    function updateVisitasCarousel() {
-        if (visitasCards.length === 0) return;
-        
-        const cardsPerView = getVisitasCardsPerView();
-        const maxIndex = Math.max(0, totalVisitasCards - cardsPerView);
-        
-        // Calculate the translation distance (horizontal)
-        const cardWidth = visitasCards[0].offsetWidth;
-        const gap = 30; // gap between cards
-        const offset = -visitasCurrentIndex * (cardWidth + gap);
-        visitasTrack.style.transform = `translateX(${offset}px)`;
-        
-        // Update arrow visibility
-        visitasLeftArrow.disabled = visitasCurrentIndex === 0;
-        visitasRightArrow.disabled = visitasCurrentIndex >= maxIndex;
-        
-        if (visitasLeftArrow.disabled) {
-            visitasLeftArrow.style.opacity = '0.3';
-            visitasLeftArrow.style.cursor = 'not-allowed';
-        } else {
-            visitasLeftArrow.style.opacity = '1';
-            visitasLeftArrow.style.cursor = 'pointer';
-        }
-        
-        if (visitasRightArrow.disabled) {
-            visitasRightArrow.style.opacity = '0.3';
-            visitasRightArrow.style.cursor = 'not-allowed';
-        } else {
-            visitasRightArrow.style.opacity = '1';
-            visitasRightArrow.style.cursor = 'pointer';
-        }
-    }
-
-    visitasLeftArrow.addEventListener('click', () => {
-        if (visitasCurrentIndex > 0) {
-            visitasCurrentIndex--;
-            updateVisitasCarousel();
-        }
+    $visitasLeftArrow.on('click', function() {
+        visitasCurrentIndex--;
+        updateVisitasCarousel();
+        setTimeout(jumpToRealVisitaCard, 500);
     });
 
-    visitasRightArrow.addEventListener('click', () => {
-        const cardsPerView = getVisitasCardsPerView();
-        const maxIndex = Math.max(0, totalVisitasCards - cardsPerView);
-        if (visitasCurrentIndex < maxIndex) {
-            visitasCurrentIndex++;
-            updateVisitasCarousel();
-        }
+    $visitasRightArrow.on('click', function() {
+        visitasCurrentIndex++;
+        updateVisitasCarousel();
+        setTimeout(jumpToRealVisitaCard, 500);
     });
 
-    // Initial setup
-    updateVisitasCarousel();
+    updateVisitasCarousel(true);
+    setTimeout(() => updateVisitasCarousel(false), 50);
     
-    // Recalculate on window resize
     let visitasResizeTimeout;
-    window.addEventListener('resize', () => {
+    $(window).on('resize', function() {
         clearTimeout(visitasResizeTimeout);
         visitasResizeTimeout = setTimeout(() => {
-            // Reset index if current position is invalid after resize
-            const cardsPerView = getVisitasCardsPerView();
-            const maxIndex = Math.max(0, totalVisitasCards - cardsPerView);
-            if (visitasCurrentIndex > maxIndex) {
-                visitasCurrentIndex = maxIndex;
-            }
             updateVisitasCarousel();
         }, 250);
     });
