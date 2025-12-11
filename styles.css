@@ -317,7 +317,17 @@ body.menu-open {
 /* HERO SECTION */
 .hero-section {
     padding: 80px 0;
-    margin-bottom: 60px;
+    position: relative;
+}
+
+.hero-section::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background-color: var(--negro);
 }
 
 .hero-content {
@@ -326,7 +336,7 @@ body.menu-open {
     gap: 60px;
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 30px;
+    padding: 0 30px 0 50px;
 }
 
 .hero-title-wrapper {
@@ -339,7 +349,7 @@ body.menu-open {
 .hero-title-line {
     font-family: var(--fuente-titulos1);
     font-weight: var(--fuente-titulos1-weight);
-    font-size: clamp(32px, 5vw, 64px);
+    font-size: clamp(36px, 5vw, 64px);
     line-height: 1.1;
     text-transform: uppercase;
     color: var(--negro);
@@ -348,14 +358,14 @@ body.menu-open {
 }
 
 .hero-title-large {
-    font-size: clamp(40px, 6vw, 80px);
+    font-size: clamp(36px, 5vw, 64px);
 }
 
 .hero-description {
     flex: 1;
-    font-family: var(--fuente-texto2);
-    font-weight: var(--fuente-texto2-weight);
-    font-size: clamp(16px, 1.8vw, 20px);
+    font-family: var(--fuente-texto1);
+    font-weight: var(--fuente-texto1-weight);
+    font-size: clamp(16px, 2vw, 20px);
     line-height: 1.6;
     color: var(--negro);
     margin: 0;
@@ -364,8 +374,8 @@ body.menu-open {
 
 /* NEWS CAROUSEL */
 .articulo-container {
-    padding: 60px 0;
     background-color: var(--blanco);
+    padding: 0px 40px 0px;
 }
 
 .articulo-container .container {
@@ -397,7 +407,7 @@ body.menu-open {
     min-width: 0;
     background-color: var(--blanco);
     overflow: hidden;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
     height: 600px;
@@ -468,35 +478,45 @@ body.menu-open {
     display: inline-flex;
     align-items: center;
     text-decoration: none;
-    font-family: var(--fuente-texto2);
-    font-weight: var(--fuente-texto2-weight);
+    font-family: var(--fuente-titulos1);
+    font-weight: var(--fuente-titulos1-weight);
     font-size: 14px;
     color: var(--negro);
     letter-spacing: 1px;
     transition: color 0.3s;
     flex-shrink: 0;
     margin-top: 0;
+    gap: 8px;
+}
+
+.discover-more span {
+    position: relative;
+}
+
+.discover-more span::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -4px;
+    width: 0;
+    height: 2px;
+    background: var(--negro);
+    transition: width 0.3s ease;
+}
+
+.discover-more:hover span::before {
+    width: 100%;
 }
 
 .discover-more::after {
     content: '';
-    display: block;
-    position: absolute;
-    left: 0;
-    bottom: -4px;
-    width: 100%;
-    height: 2.5px;
-    background: var(--blanco);
-    opacity: 0;
-    transform: scaleX(0);
-    transform-origin: left center;
-    transition: transform 200ms ease, opacity 150ms ease;
-    border-radius: 3px;
-}
-
-.discover-more:hover::after {
-    opacity: 1;
-    transform: scaleX(1);
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    background-image: url('https://ik.imagekit.io/gd2om19h3p/comunidad%20de%20madrid/descubre%20mas%20arrow.svg?updatedAt=1765400499906');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 /* CAROUSEL ARROWS */
@@ -533,25 +553,45 @@ body.menu-open {
 
 /* QUE HACER SECTION */
 .que-hacer-section {
-    padding: 80px 0;
+    padding: 100px 0;
+}
+
+.que-hacer-content {
+    display: flex;
+    align-items: flex-start;
+    gap: 60px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 30px;
+    margin-bottom: 50px;
+}
+
+.que-hacer-title-wrapper {
+    flex: 0 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
 }
 
 .section-title {
     font-family: var(--fuente-titulos1);
     font-weight: var(--fuente-titulos1-weight);
-    font-size: clamp(28px, 4vw, 48px);
+    font-size: clamp(36px, 5vw, 64px);
     text-transform: uppercase;
-    margin-bottom: 24px;
+    margin: 0;
+    padding: 0;
     line-height: 1.1;
 }
 
 .section-description {
+    flex: 1;
     font-family: var(--fuente-texto1);
     font-weight: var(--fuente-texto1-weight);
-    font-size: clamp(14px, 1.5vw, 16px);
+    font-size: clamp(16px, 2vw, 20px);
     line-height: 1.6;
-    margin-bottom: 50px;
-    max-width: 900px;
+    color: var(--negro);
+    margin: 0;
+    padding-top: 0;
 }
 
 .actividades-grid {
@@ -615,19 +655,49 @@ body.menu-open {
 
 /* PATRIMONIO SECTION */
 .patrimonio-section {
+    background-color: var(--blanco);
+    padding: 0;
+}
+
+.patrimonio-card {
+    display: flex;
+    width: 100%;
+    margin: 0;
     background-color: var(--rojo);
-    color: var(--blanco);
-    padding: 80px 0;
+    border-radius: 0;
+    overflow: hidden;
+    min-height: 400px;
+}
+
+.patrimonio-image {
+    flex: 0 0 50%;
+    width: 50%;
+    position: relative;
+    overflow: hidden;
+}
+
+.patrimonio-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
 }
 
 .patrimonio-content {
-    max-width: 800px;
+    flex: 0 0 50%;
+    width: 50%;
+    padding: 60px 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: var(--rojo);
+    color: var(--blanco);
 }
 
 .section-title-white {
     font-family: var(--fuente-titulos1);
     font-weight: var(--fuente-titulos1-weight);
-    font-size: clamp(28px, 4vw, 48px);
+    font-size: clamp(36px, 5vw, 64px);
     text-transform: uppercase;
     margin-bottom: 24px;
     color: var(--blanco);
@@ -637,9 +707,10 @@ body.menu-open {
 .patrimonio-text {
     font-family: var(--fuente-texto1);
     font-weight: var(--fuente-texto1-weight);
-    font-size: clamp(14px, 1.5vw, 16px);
+    font-size: clamp(14px, 1.5vw, 18px);
     line-height: 1.6;
     margin-bottom: 20px;
+    color: var(--blanco);
 }
 
 /* VISITAS IMPRESCINDIBLES */
@@ -826,20 +897,47 @@ body.menu-open {
     display: inline-flex;
     align-items: center;
     text-decoration: none;
-    font-family: var(--fuente-texto2);
-    font-weight: var(--fuente-texto2-weight);
+    font-family: var(--fuente-titulos1);
+    font-weight: var(--fuente-titulos1-weight);
     font-size: 14px;
     color: var(--blanco);
     letter-spacing: 1px;
     text-transform: uppercase;
     flex-shrink: 0;
     margin-top: 0;
-    transition: opacity 0.3s;
-    gap: 4px;
+    position: relative;
+    gap: 8px;
 }
 
-.evento-discover-more:hover {
-    opacity: 0.8;
+.evento-discover-more span {
+    position: relative;
+}
+
+.evento-discover-more span::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -4px;
+    width: 0;
+    height: 2px;
+    background: var(--blanco);
+    transition: width 0.3s ease;
+}
+
+.evento-discover-more:hover span::before {
+    width: 100%;
+}
+
+.evento-discover-more::after {
+    content: '';
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    background-image: url('https://ik.imagekit.io/gd2om19h3p/comunidad%20de%20madrid/descubre%20mas%20arrow.svg?updatedAt=1765400499906');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    filter: brightness(0) invert(1);
 }
 
 .eventos-arrow {
@@ -1051,10 +1149,34 @@ body.menu-open {
     .hero-content {
         flex-direction: column;
         gap: 30px;
+        padding: 0 20px 0 40px;
     }
     
     .hero-description {
         padding-top: 0;
+    }
+
+    .que-hacer-content {
+        flex-direction: column;
+        gap: 30px;
+        padding: 0 20px;
+    }
+
+    .patrimonio-card {
+        flex-direction: column;
+        min-height: auto;
+    }
+
+    .patrimonio-image {
+        flex: 0 0 auto;
+        width: 100%;
+        height: 300px;
+    }
+
+    .patrimonio-content {
+        flex: 0 0 auto;
+        width: 100%;
+        padding: 40px 30px;
     }
 }
 
