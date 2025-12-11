@@ -370,3 +370,94 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 250);
     });
 });
+
+// --- Visitas Carousel Logic ---
+
+document.addEventListener('DOMContentLoaded', function() {
+    const visitasTrack = document.getElementById('visitasCarouselTrack');
+    const visitasLeftArrow = document.querySelector('.visitas-section .visitas-arrow.left-arrow');
+    const visitasRightArrow = document.querySelector('.visitas-section .visitas-arrow.right-arrow');
+    const visitasViewport = document.querySelector('.visitas-carousel-viewport');
+    
+    if (!visitasTrack || !visitasLeftArrow || !visitasRightArrow || !visitasViewport) return; 
+
+    const visitasCards = visitasTrack.querySelectorAll('.visita-card');
+    const totalVisitasCards = visitasCards.length;
+    let visitasCurrentIndex = 0;
+    
+    // Calculate cards per view based on screen size
+    function getVisitasCardsPerView() {
+        if (visitasCards.length === 0) return 1;
+        const viewportWidth = visitasViewport.offsetWidth;
+        const cardWidth = visitasCards[0].offsetWidth;
+        const gap = 30; // gap between cards
+        return Math.floor((viewportWidth + gap) / (cardWidth + gap)) || 1;
+    }
+
+    function updateVisitasCarousel() {
+        if (visitasCards.length === 0) return;
+        
+        const cardsPerView = getVisitasCardsPerView();
+        const maxIndex = Math.max(0, totalVisitasCards - cardsPerView);
+        
+        // Calculate the translation distance (horizontal)
+        const cardWidth = visitasCards[0].offsetWidth;
+        const gap = 30; // gap between cards
+        const offset = -visitasCurrentIndex * (cardWidth + gap);
+        visitasTrack.style.transform = `translateX(${offset}px)`;
+        
+        // Update arrow visibility
+        visitasLeftArrow.disabled = visitasCurrentIndex === 0;
+        visitasRightArrow.disabled = visitasCurrentIndex >= maxIndex;
+        
+        if (visitasLeftArrow.disabled) {
+            visitasLeftArrow.style.opacity = '0.3';
+            visitasLeftArrow.style.cursor = 'not-allowed';
+        } else {
+            visitasLeftArrow.style.opacity = '1';
+            visitasLeftArrow.style.cursor = 'pointer';
+        }
+        
+        if (visitasRightArrow.disabled) {
+            visitasRightArrow.style.opacity = '0.3';
+            visitasRightArrow.style.cursor = 'not-allowed';
+        } else {
+            visitasRightArrow.style.opacity = '1';
+            visitasRightArrow.style.cursor = 'pointer';
+        }
+    }
+
+    visitasLeftArrow.addEventListener('click', () => {
+        if (visitasCurrentIndex > 0) {
+            visitasCurrentIndex--;
+            updateVisitasCarousel();
+        }
+    });
+
+    visitasRightArrow.addEventListener('click', () => {
+        const cardsPerView = getVisitasCardsPerView();
+        const maxIndex = Math.max(0, totalVisitasCards - cardsPerView);
+        if (visitasCurrentIndex < maxIndex) {
+            visitasCurrentIndex++;
+            updateVisitasCarousel();
+        }
+    });
+
+    // Initial setup
+    updateVisitasCarousel();
+    
+    // Recalculate on window resize
+    let visitasResizeTimeout;
+    window.addEventListener('resize', () => {
+        clearTimeout(visitasResizeTimeout);
+        visitasResizeTimeout = setTimeout(() => {
+            // Reset index if current position is invalid after resize
+            const cardsPerView = getVisitasCardsPerView();
+            const maxIndex = Math.max(0, totalVisitasCards - cardsPerView);
+            if (visitasCurrentIndex > maxIndex) {
+                visitasCurrentIndex = maxIndex;
+            }
+            updateVisitasCarousel();
+        }, 250);
+    });
+});
