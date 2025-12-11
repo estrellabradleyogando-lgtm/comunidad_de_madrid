@@ -127,122 +127,116 @@ if (hamburger && navMenu) {
 }
 
 
-// Data for 12 months (Enero to Diciembre)
-const labels = [
-    'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 
-    'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
+// Etiquetas para los últimos 10 años (2015-2025)
+const etiquetas = [
+    '2015', '2016', '2017', '2018', '2019', '2020', '2021', '2022', '2023', '2024', '2025'
 ];
 
-// Extended data for 12 months (replace with your actual 2025 data if available)
-const chartDataValues = [65, 59, 80, 81, 56, 55, 40, 70, 75, 62, 58, 45]; // Example 12-month data
-
-const data = {
-    labels: labels,
+// Datos: CO2 emitido por año (mostrando reducción progresiva con variaciones)
+const datos = {
+    labels: etiquetas,
     datasets: [{
-        label: 'CO2 emitido por coches en 2025 (toneladas)',
-        data: chartDataValues,
-        backgroundColor: [
-            'rgba(255, 99, 132, 0.6)', // Enero
-            'rgba(255, 159, 64, 0.6)', // Febrero
-            'rgba(255, 205, 86, 0.6)', // Marzo
-            'rgba(75, 192, 192, 0.6)', // Abril
-            'rgba(54, 162, 235, 0.6)', // Mayo
-            'rgba(153, 102, 255, 0.6)', // Junio
-            'rgba(201, 203, 207, 0.6)', // Julio
-            'rgba(255, 99, 132, 0.4)', // Agosto
-            'rgba(255, 159, 64, 0.4)', // Septiembre
-            'rgba(255, 205, 86, 0.4)', // Octubre
-            'rgba(75, 192, 192, 0.4)', // Noviembre
-            'rgba(54, 162, 235, 0.4)'  // Diciembre
-        ],
-        borderColor: [
-            'rgb(255, 99, 132)',
-            'rgb(255, 159, 64)',
-            'rgb(255, 205, 86)',
-            'rgb(75, 192, 192)',
-            'rgb(54, 162, 235)',
-            'rgb(153, 102, 255)',
-            'rgb(201, 203, 207)',
-            'rgb(255, 99, 132)',
-            'rgb(255, 159, 64)',
-            'rgb(255, 205, 86)',
-            'rgb(75, 192, 192)',
-            'rgb(54, 162, 235)'
-        ],
+        label: 'CO₂ emitido (toneladas)',
+        data: [100, 95, 88, 82, 75, 68, 63, 55, 49, 42, 35], // Valores decrecientes con variaciones irregulares
+        backgroundColor: 'rgba(255, 0, 0, 0.5)', // Rojo semitransparente
+        borderColor: 'rgb(255, 0, 0)',           // Rojo sólido
         borderWidth: 1
     }]
 };
 
+// Configuración del gráfico
 const config = {
     type: 'bar',
-    data: data,
+    data: datos,
     options: {
-        responsive: true, // Makes the chart resize with the container
+        responsive: true,
+        maintainAspectRatio: false,
         scales: {
             y: {
                 beginAtZero: true,
                 title: {
                     display: true,
-                    text: 'CO2 (toneladas)'
+                    text: 'CO₂ emitido (toneladas)'
                 }
             },
             x: {
                 title: {
                     display: true,
-                    text: 'Mes'
+                    text: 'Años'
                 }
             }
-        },
-        plugins: {
-            title: {
-                display: true,
-                text: 'Emisiones de CO2 de coches por mes en 2025' // Main Chart Title
-            }
         }
-    },
+    }
 };
 
-// Find the canvas element and initialize the chart
+// Renderizar el gráfico
 window.onload = function() {
-    const ctx = document.getElementById('co2Chart').getContext('2d');
-    new Chart(
-        ctx,
-        config
-    );
+    const ctx = document.getElementById('Chart');
+    if (ctx) {
+        new Chart(ctx, config);
+    }
 };
 
 // --- ADDED: Card Carousel Logic ---
 
 document.addEventListener('DOMContentLoaded', function() {
     const track = document.getElementById('cardCarouselTrack');
-    const leftArrow = document.querySelector('.left-arrow');
-    const rightArrow = document.querySelector('.right-arrow');
-    const viewport = document.querySelector('.carousel-viewport');
+    const leftArrow = document.querySelector('.articulo-container .left-arrow');
+    const rightArrow = document.querySelector('.articulo-container .right-arrow');
+    const viewport = document.querySelector('.articulo-container .carousel-viewport');
     
     if (!track || !leftArrow || !rightArrow || !viewport) return; 
 
     const cards = track.querySelectorAll('.articulo-card');
-    const cardsPerView = 3; 
     const totalCards = cards.length;
     let currentIndex = 0;
-
-    // Get calculated height of a card including margin
-    const cardStyle = window.getComputedStyle(cards[0]);
-    const cardMarginBottom = parseInt(cardStyle.marginBottom);
-    const cardHeight = cards[0].offsetHeight + cardMarginBottom;
     
-    // Set viewport height to show exactly 3 cards minus the last margin
-    viewport.style.height = `${cardHeight * cardsPerView - cardMarginBottom}px`; 
-
+    // Cards now have fixed height in CSS, no need to calculate
+    function setEqualHeight() {
+        // Fixed height is set in CSS, no dynamic calculation needed
+        return;
+    }
+    
+    // Calculate cards per view based on screen size
+    function getCardsPerView() {
+        if (cards.length === 0) return 1;
+        const viewportWidth = viewport.offsetWidth;
+        const cardWidth = cards[0].offsetWidth;
+        const gap = 30; // gap between cards
+        return Math.floor((viewportWidth + gap) / (cardWidth + gap)) || 1;
+    }
 
     function updateCarousel() {
-        // Calculate the translation distance
-        const offset = -currentIndex * cardHeight;
-        track.style.transform = `translateY(${offset}px)`;
+        if (cards.length === 0) return;
+        
+        const cardsPerView = getCardsPerView();
+        const maxIndex = Math.max(0, totalCards - cardsPerView);
+        
+        // Calculate the translation distance (horizontal)
+        const cardWidth = cards[0].offsetWidth;
+        const gap = 30; // gap between cards
+        const offset = -currentIndex * (cardWidth + gap);
+        track.style.transform = `translateX(${offset}px)`;
         
         // Update arrow visibility
         leftArrow.disabled = currentIndex === 0;
-        rightArrow.disabled = currentIndex >= totalCards - cardsPerView;
+        rightArrow.disabled = currentIndex >= maxIndex;
+        
+        if (leftArrow.disabled) {
+            leftArrow.style.opacity = '0.3';
+            leftArrow.style.cursor = 'not-allowed';
+        } else {
+            leftArrow.style.opacity = '1';
+            leftArrow.style.cursor = 'pointer';
+        }
+        
+        if (rightArrow.disabled) {
+            rightArrow.style.opacity = '0.3';
+            rightArrow.style.cursor = 'not-allowed';
+        } else {
+            rightArrow.style.opacity = '1';
+            rightArrow.style.cursor = 'pointer';
+        }
     }
 
     leftArrow.addEventListener('click', () => {
@@ -253,12 +247,126 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     rightArrow.addEventListener('click', () => {
-        if (currentIndex < totalCards - cardsPerView) {
+        const cardsPerView = getCardsPerView();
+        const maxIndex = Math.max(0, totalCards - cardsPerView);
+        if (currentIndex < maxIndex) {
             currentIndex++;
             updateCarousel();
         }
     });
 
-    // Initial setup
+    // Set equal heights and initial setup
+    setEqualHeight();
     updateCarousel();
+    
+    // Recalculate on window resize
+    let resizeTimeout;
+    window.addEventListener('resize', () => {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(() => {
+            setEqualHeight();
+            // Reset index if current position is invalid after resize
+            const cardsPerView = getCardsPerView();
+            const maxIndex = Math.max(0, totalCards - cardsPerView);
+            if (currentIndex > maxIndex) {
+                currentIndex = maxIndex;
+            }
+            updateCarousel();
+        }, 250);
+    });
+});
+
+// --- Eventos Carousel Logic ---
+
+document.addEventListener('DOMContentLoaded', function() {
+    const eventosTrack = document.getElementById('eventosCarouselTrack');
+    const eventosLeftArrow = document.querySelector('.eventos-section .eventos-arrow.left-arrow');
+    const eventosRightArrow = document.querySelector('.eventos-section .eventos-arrow.right-arrow');
+    const eventosViewport = document.querySelector('.eventos-carousel-viewport');
+    
+    if (!eventosTrack || !eventosLeftArrow || !eventosRightArrow || !eventosViewport) return; 
+
+    const eventosCards = eventosTrack.querySelectorAll('.evento-placeholder, .evento-destacado');
+    const totalEventosCards = eventosCards.length;
+    let eventosCurrentIndex = 0;
+    
+    // Cards now have fixed height in CSS, no need to calculate
+    function setEventosEqualHeight() {
+        // Fixed height is set in CSS, no dynamic calculation needed
+        return;
+    }
+    
+    // Calculate cards per view based on screen size
+    function getEventosCardsPerView() {
+        // Since cards are full width, always show 1 card per view
+        return 1;
+    }
+
+    function updateEventosCarousel() {
+        if (eventosCards.length === 0) return;
+        
+        const cardsPerView = getEventosCardsPerView();
+        const maxIndex = Math.max(0, totalEventosCards - cardsPerView);
+        
+        // Calculate the translation distance (horizontal)
+        const cardWidth = eventosCards[0].offsetWidth;
+        const offset = -eventosCurrentIndex * cardWidth;
+        eventosTrack.style.transform = `translateX(${offset}px)`;
+        
+        // Update arrow visibility
+        eventosLeftArrow.disabled = eventosCurrentIndex === 0;
+        eventosRightArrow.disabled = eventosCurrentIndex >= maxIndex;
+        
+        if (eventosLeftArrow.disabled) {
+            eventosLeftArrow.style.opacity = '0.3';
+            eventosLeftArrow.style.cursor = 'not-allowed';
+        } else {
+            eventosLeftArrow.style.opacity = '1';
+            eventosLeftArrow.style.cursor = 'pointer';
+        }
+        
+        if (eventosRightArrow.disabled) {
+            eventosRightArrow.style.opacity = '0.3';
+            eventosRightArrow.style.cursor = 'not-allowed';
+        } else {
+            eventosRightArrow.style.opacity = '1';
+            eventosRightArrow.style.cursor = 'pointer';
+        }
+    }
+
+    eventosLeftArrow.addEventListener('click', () => {
+        if (eventosCurrentIndex > 0) {
+            eventosCurrentIndex--;
+            updateEventosCarousel();
+        }
+    });
+
+    eventosRightArrow.addEventListener('click', () => {
+        const cardsPerView = getEventosCardsPerView();
+        const maxIndex = Math.max(0, totalEventosCards - cardsPerView);
+        if (eventosCurrentIndex < maxIndex) {
+            eventosCurrentIndex++;
+            updateEventosCarousel();
+        }
+    });
+
+    // Set equal heights and initial setup
+    setEventosEqualHeight();
+    updateEventosCarousel();
+    
+    // Recalculate on window resize
+    let eventosResizeTimeout;
+    window.addEventListener('resize', () => {
+        clearTimeout(eventosResizeTimeout);
+        eventosResizeTimeout = setTimeout(() => {
+            setEventosEqualHeight();
+            // Reset index if current position is invalid after resize
+            const cardsPerView = getEventosCardsPerView();
+            const maxIndex = Math.max(0, totalEventosCards - cardsPerView);
+            if (eventosCurrentIndex > maxIndex) {
+                eventosCurrentIndex = maxIndex;
+            }
+            updateEventosCarousel();
+        }, 250);
+    });
 });

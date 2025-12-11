@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://use.typekit.net/qba8yat.css">
     <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <script src="script.js"></script>
     <link rel="icon" type="image/svg+xml"
         href="https://ik.imagekit.io/gd2om19h3p/comunidad%20de%20madrid/favicon_Emblema_del_Gobierno_de_la_Comunidad_de_Madrid.svg.png?updatedAt=1765194009278">
@@ -38,68 +39,95 @@
 
     <!-- HERO SECTION -->
     <section class="hero-section">
-        <div class="hero-content">
-            <h1 class="hero-title">BIENVENIDOS A LA COMUNIDAD DE MADRID</h1>
-            <p class="hero-description">Es el momento ideal para descubrir la Comunidad de Madrid, capital de España y
-                una de las regiones más dinámicas de Europa. Una región llena de encanto que rebosa de cultura y vida.
-                ¡Nos esperas más—nada más! Aquí esperamos te pares.</p>
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-title-wrapper">
+                    <h1 class="hero-title-line">BIENVENIDOS A LA</h1>
+                    <h1 class="hero-title-line hero-title-large">COMUNIDAD DE</h1>
+                    <h1 class="hero-title-line hero-title-large">MADRID</h1>
+                </div>
+                <p class="hero-description">Es el momento ideal para descubrir la Comunidad de Madrid, capital de España y epicentro cultural donde siempre sucede algo. No esperes más—cada instante aquí merece la pena.</p>
+            </div>
         </div>
     </section>
 
     <!-- NEWS CAROUSEL -->
     <section class="articulo-container" id="news">
-        <div class="carousel-wrapper">
-            <button class="carousel-arrow left-arrow" aria-label="Anterior">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round" />
-                </svg>
-            </button>
+        <div class="container">
+            <div class="carousel-wrapper">
+                <button class="carousel-arrow left-arrow" aria-label="Anterior">
+                    <img src="https://ik.imagekit.io/gd2om19h3p/comunidad%20de%20madrid/arrow-left-s-line.svg?updatedAt=1765401642340" alt="Anterior" />
+                </button>
 
-            <div class="carousel-viewport">
-                <div class="carousel-track" id="cardCarouselTrack">
-                    <article class="articulo-card">
-                        <img src="https://via.placeholder.com/400x250" aria-label="Luces Navidad"></img>
-                        <div class="card-content">
-                            <span class="articulo-tag">NOTICIA</span>
-                            <h3 class="card-title">Luces Navidad Madrid 2025-2026</h3>
-                            <p class="card-description">Madrid se viste de fiesta para Navidad. Disfruta de las
-                                espectaculares luces que engalanan gran parte de la ciudad desde el 22 de noviembre
-                                hasta el 6 de enero.</p>
-                            <a href="#" class="discover-more">DESCUBRE MÁS →</a>
-                        </div>
-                    </article>
+                <div class="carousel-viewport">
+                    <div class="carousel-track" id="cardCarouselTrack">
+                        <article class="articulo-card">
+                            <div class="card-image-placeholder"></div>
+                            <div class="card-content">
+                                <span class="articulo-tag">Artículo</span>
+                                <h3 class="card-title">Luces Navidad Madrid 2025-2026</h3>
+                                <p class="card-description">Madrid se viste de fiesta para Navidad. Disfruta de las
+                                    espectaculares luces que engalanan gran parte de la ciudad (22 nov a 6 ene).</p>
+                                <a href="#" class="discover-more">DESCUBRE MÁS →</a>
+                            </div>
+                        </article>
 
-                    <article class="articulo-card">
-                        <img src="https://via.placeholder.com/400x250" aria-label="David Bisbal"></img>
-                        <div class="card-content">
-                            <span class="articulo-tag">NOTICIA</span>
-                            <h3 class="card-title">Actuación de David Bisbal en el Mutua</h3>
-                            <p class="card-description">El artista almeriense ofrecerá un concierto único en Madrid. Una
-                                noche llena de éxitos y emociones para todos sus fans.</p>
-                            <a href="#" class="discover-more">DESCUBRE MÁS →</a>
-                        </div>
-                    </article>
+                        <article class="articulo-card">
+                            <div class="card-image-placeholder"></div>
+                            <div class="card-content">
+                                <span class="articulo-tag">Artículo</span>
+                                <h3 class="card-title">Actuación de David Bisbal en el Metro</h3>
+                                <p class="card-description">La Comunidad de Madrid inaugura el Tren Mágico de la Navidad en la Línea 3 de Metro con la actuación de David Bisbal</p>
+                                <a href="#" class="discover-more">DESCUBRE MÁS →</a>
+                            </div>
+                        </article>
 
-                    <article class="articulo-card">
-                        <img src="https://via.placeholder.com/400x250" aria-label="Concierto gratuito"></img>
-                        <div class="card-content">
-                            <span class="articulo-tag">NOTICIA</span>
-                            <h3 class="card-title">Concierto gratuito en la Puerta del Sol</h3>
-                            <p class="card-description">Disfruta de música en vivo en el corazón de Madrid. Un evento
-                                para toda la familia con artistas locales e internacionales.</p>
-                            <a href="#" class="discover-more">DESCUBRE MÁS →</a>
-                        </div>
-                    </article>
+                        <article class="articulo-card">
+                            <div class="card-image-placeholder"></div>
+                            <div class="card-content">
+                                <span class="articulo-tag">Artículo</span>
+                                <h3 class="card-title">Concierto gratis en la Puerta del Sol</h3>
+                                <p class="card-description">El evento gratuito tiene lugar en el centro de la ciudad este 19 de noviembre donde asistirá Amaia, Dellafuente y más artistas</p>
+                                <a href="#" class="discover-more">DESCUBRE MÁS →</a>
+                            </div>
+                        </article>
+
+                        <article class="articulo-card">
+                            <div class="card-image-placeholder"></div>
+                            <div class="card-content">
+                                <span class="articulo-tag">Artículo</span>
+                                <h3 class="card-title">Gastronomía tradicional de la Comunidad</h3>
+                                <p class="card-description">La Comunidad de Madrid aúna tradición y renovación. Nuestra región ha sabido adaptarse a los tiempos sin renunciar a sus tradiciones. ¡Buen provecho!</p>
+                                <a href="#" class="discover-more">DESCUBRE MÁS →</a>
+                            </div>
+                        </article>
+
+                        <article class="articulo-card">
+                            <div class="card-image-placeholder"></div>
+                            <div class="card-content">
+                                <span class="articulo-tag">Artículo</span>
+                                <h3 class="card-title">Cambio de guardia en el Palacio Real de Madrid</h3>
+                                <p class="card-description">Todos los miércoles y sábados puedes disfrutar en la Puerta del Príncipe del Palacio Real de Madrid del cambio de guardia de la Guardia Real.</p>
+                                <a href="#" class="discover-more">DESCUBRE MÁS →</a>
+                            </div>
+                        </article>
+
+                        <article class="articulo-card">
+                            <div class="card-image-placeholder"></div>
+                            <div class="card-content">
+                                <span class="articulo-tag">Artículo</span>
+                                <h3 class="card-title">Pistas de Hielo Navidad 2025-2026</h3>
+                                <p class="card-description">Las diferentes pistas de patinaje de las que podrás disfrutar en Madrid durante las Navidades 2025-2026.</p>
+                                <a href="#" class="discover-more">DESCUBRE MÁS →</a>
+                            </div>
+                        </article>
+                    </div>
                 </div>
-            </div>
 
-            <button class="carousel-arrow right-arrow" aria-label="Siguiente">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round" />
-                </svg>
-            </button>
+                <button class="carousel-arrow right-arrow" aria-label="Siguiente">
+                    <img src="https://ik.imagekit.io/gd2om19h3p/comunidad%20de%20madrid/arrow-right-s-line.svg?updatedAt=1765401651746" alt="Siguiente" />
+                </button>
+            </div>
         </div>
     </section>
 
@@ -114,36 +142,44 @@
 
             <div class="actividades-grid">
                 <div class="actividad-item">
-                    <div class="actividad-image"></div>
-                    <h3>Artes plásticas</h3>
+                    <div class="actividad-image">
+                        <h3>Artes escénicas</h3>
+                    </div>
                 </div>
                 <div class="actividad-item">
-                    <div class="actividad-image"></div>
-                    <h3>Planes & gastos</h3>
+                    <div class="actividad-image">
+                        <h3>Museos & galerías</h3>
+                    </div>
                 </div>
                 <div class="actividad-item">
-                    <div class="actividad-image"></div>
-                    <h3>Tours & excursiones</h3>
+                    <div class="actividad-image">
+                        <h3>Tours & atracciones</h3>
+                    </div>
                 </div>
                 <div class="actividad-item">
-                    <div class="actividad-image"></div>
-                    <h3>Eventos & festivales</h3>
+                    <div class="actividad-image">
+                        <h3>Eventos & festivales</h3>
+                    </div>
                 </div>
                 <div class="actividad-item">
-                    <div class="actividad-image"></div>
-                    <h3>Compras</h3>
+                    <div class="actividad-image">
+                        <h3>Compras</h3>
+                    </div>
                 </div>
                 <div class="actividad-item">
-                    <div class="actividad-image"></div>
-                    <h3>Deportes</h3>
+                    <div class="actividad-image">
+                        <h3>Deportes</h3>
+                    </div>
                 </div>
                 <div class="actividad-item">
-                    <div class="actividad-image"></div>
-                    <h3>Vida nocturna</h3>
+                    <div class="actividad-image">
+                        <h3>Vida nocturna</h3>
+                    </div>
                 </div>
                 <div class="actividad-item">
-                    <div class="actividad-image"></div>
-                    <h3>Naturaleza</h3>
+                    <div class="actividad-image">
+                        <h3>Naturaleza</h3>
+                    </div>
                 </div>
             </div>
         </div>
@@ -207,16 +243,43 @@
         <div class="container">
             <h2 class="section-title">PRÓXIMOS EVENTOS</h2>
 
-            <div class="eventos-grid">
-                <div class="evento-placeholder"></div>
-                <div class="evento-destacado">
-                    <span class="evento-tag">CONCIERTOS</span>
-                    <span class="evento-tag">SAB 14 DIC - VIE 31 ENE</span>
-                    <h3>Ciclo de conciertos - Idea Futuro/pasado</h3>
-                    <p>Disfruta de una serie de conciertos únicos que fusionan tradición y modernidad en los mejores
-                        escenarios de Madrid.</p>
-                    <a href="#" class="discover-more">DESCUBRE MÁS →</a>
+            <div class="eventos-carousel-wrapper">
+                <button class="carousel-arrow left-arrow eventos-arrow" aria-label="Anterior">
+                    <img src="https://ik.imagekit.io/gd2om19h3p/comunidad%20de%20madrid/arrow-left-s-line.svg?updatedAt=1765401642340" alt="Anterior" />
+                </button>
+
+                <div class="eventos-carousel-viewport">
+                    <div class="eventos-carousel-track" id="eventosCarouselTrack">
+                        <div class="evento-destacado">
+                            <div class="evento-image"></div>
+                            <div class="evento-content">
+                                <div class="evento-tags">
+                                    <span class="evento-tag">Museos & galerías</span>
+                                    <span class="evento-tag">10 Sep, 2025-11 Ene, 2026</span>
+                                </div>
+                                <h3>Exposición Alfredo Alcain. Una retrospectiva</h3>
+                                <p>Madrid se viste de fiesta para Navidad. Disfruta de las espectaculares luces que engalanan gran parte de la ciudad (22 nov a 6 ene).</p>
+                                <a href="#" class="evento-discover-more">VISITAR WEB →</a>
+                            </div>
+                        </div>
+                        <div class="evento-destacado">
+                            <div class="evento-image"></div>
+                            <div class="evento-content">
+                                <div class="evento-tags">
+                                    <span class="evento-tag">CONCIERTOS</span>
+                                    <span class="evento-tag">SAB 14 DIC - VIE 31 ENE</span>
+                                </div>
+                                <h3>Ciclo de conciertos - Idea Futuro/pasado</h3>
+                                <p>Disfruta de una serie de conciertos únicos que fusionan tradición y modernidad en los mejores escenarios de Madrid.</p>
+                                <a href="#" class="evento-discover-more">VISITAR WEB →</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+
+                <button class="carousel-arrow right-arrow eventos-arrow" aria-label="Siguiente">
+                    <img src="https://ik.imagekit.io/gd2om19h3p/comunidad%20de%20madrid/arrow-right-s-line.svg?updatedAt=1765401651746" alt="Siguiente" />
+                </button>
             </div>
         </div>
     </section>
@@ -244,61 +307,49 @@
         <div class="container">
             <!-- Top Section -->
             <div class="footer-top">
-                <div class="top-row">
-                    <a href="home.html" class="logo">
-                        <img src="https://ejemplo" alt="Comunidad de Madrid Logo" class="logo-img" />
-                    </a>
+                <div class="madrid-emblem">
+                    <img src="https://ik.imagekit.io/gd2om19h3p/comunidad%20de%20madrid/madridLogo.svg?updatedAt=1765193690983" alt="Comunidad de Madrid Logo" class="madrid-logo" />
                 </div>
-                <div class="row">
-                    <div class="col-4">
+                <div class="footer-row">
+                    <div class="footer-col">
                         <h3>Síguenos</h3>
-                        <div class="partner-logos">
-                            <a href="https://www.facebook.com/fstvlb/" target="_blank" rel="noopener noreferrer"><img
-                                    src="https://ik.imagekit.io/estrellabradley/logos/VollDamm.svg?updatedAt=1762252673816"
-                                    alt="Voll-Damm" /></a>
-                            <a href="https://www.facebook.com/fstvlb/" target="_blank" rel="noopener noreferrer"><img
-                                    src="https://ik.imagekit.io/estrellabradley/logos/VollDamm.svg?updatedAt=1762252673816"
-                                    alt="Voll-Damm" /></a>
-                            <a href="https://www.facebook.com/fstvlb/" target="_blank" rel="noopener noreferrer"><img
-                                    src="https://ik.imagekit.io/estrellabradley/logos/VollDamm.svg?updatedAt=1762252673816"
-                                    alt="Voll-Damm" /></a>
-                            <a href="https://www.facebook.com/fstvlb/" target="_blank" rel="noopener noreferrer"><img
-                                    src="https://ik.imagekit.io/estrellabradley/logos/VollDamm.svg?updatedAt=1762252673816"
-                                    alt="Voll-Damm" /></a>
-                            <a href="https://www.facebook.com/fstvlb/" target="_blank" rel="noopener noreferrer"><img
-                                    src="https://ik.imagekit.io/estrellabradley/logos/VollDamm.svg?updatedAt=1762252673816"
-                                    alt="Voll-Damm" /></a>
+                        <div class="social-icons">
+                            <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="Facebook">
+                                <img src="https://ik.imagekit.io/gd2om19h3p/comunidad%20de%20madrid/facebook.svg" alt="Facebook" />
+                            </a>
+                            <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="Instagram">
+                                <img src="https://ik.imagekit.io/gd2om19h3p/comunidad%20de%20madrid/instagram.svg" alt="Instagram" />
+                            </a>
+                            <a href="https://x.com" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="X (Twitter)">
+                                <img src="https://ik.imagekit.io/gd2om19h3p/comunidad%20de%20madrid/X.svg" alt="X" />
+                            </a>
+                            <a href="https://www.youtube.com" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="YouTube">
+                                <img src="https://ik.imagekit.io/gd2om19h3p/comunidad%20de%20madrid/youtube.svg" alt="YouTube" />
+                            </a>
+                            <a href="https://www.tiktok.com" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="TikTok">
+                                <img src="https://ik.imagekit.io/gd2om19h3p/comunidad%20de%20madrid/tiktok.svg" alt="TikTok" />
+                            </a>
                         </div>
-                        <p><a href="https://www.instagram.com/fstvl_b/" target="_blank"
-                                rel="noopener noreferrer">#ElMejorEstiloDeVida</a></p>
-                        <p><a href="https://www.instagram.com/fstvl_b/" target="_blank"
-                                rel="noopener noreferrer">#TurismoMadrid</a></p>
-                        <p><a href="https://www.instagram.com/fstvl_b/" target="_blank"
-                                rel="noopener noreferrer">#VisitMadrid</a></p>
+                        <div class="hashtags">
+                            <p><a href="#" target="_blank" rel="noopener noreferrer">#ElMejorEstiloDeVida</a></p>
+                            <p><a href="#" target="_blank" rel="noopener noreferrer">#TurismoMadrid</a></p>
+                            <p><a href="#" target="_blank" rel="noopener noreferrer">#VisitMadrid</a></p>
+                        </div>
                     </div>
-                    <div class="col-4">
+                    <div class="footer-col">
                         <h3>Contacto</h3>
                         <p>Plaza Puerta del Sol, 7 — 28013 Madrid</p>
                         <p>Teléfono: 012</p>
-                        <p>Mail: </p>
-                        <p><a href="https://www.lacosta.cat/" target="_blank"
-                                rel="noopener noreferrer">atencionalciudadano@madrid.org</a></p>
-                        <p>Horario de atención al público: de lunes a viernes, de 8:00 a 13:00.</p>
-                        <p>Cerrado fines de semana y festivos.</p>
-                        <p>Habitualmente cerrada entre Navidad y Año Nuevo.</p>
+                        <p>Mail: <a href="mailto:atencionalciudadano@madrid.org">atencionalciudadano@madrid.org</a></p>
+                        <p>Horario de atención al público: de lunes a viernes, de 8:00 a 13:00. Cerrado fines de semana y festivos. Habitualmente cerrada entre Navidad y Año Nuevo.</p>
                     </div>
-                    <div class="col-4">
+                    <div class="footer-col">
                         <h3>Planifica tu viaje</h3>
-                        <p><a href="https://www.instagram.com/fstvl_b/" target="_blank"
-                                rel="noopener noreferrer">Itinerarios</a>
-                        </p>
-                        <p><a href="https://x.com/fstvl_b/" target="_blank" rel="noopener noreferrer">Mapas</a></p>
-                        <p><a href="https://www.facebook.com/fstvlb/" target="_blank" rel="noopener noreferrer">Dónde
-                                dormir</a>
-                        </p>
-                        <p><a href="https://x.com/fstvl_b/" target="_blank" rel="noopener noreferrer">Qué comer</a></p>
-                        <p><a href="https://x.com/fstvl_b/" target="_blank" rel="noopener noreferrer">Oficinas de
-                                turismo</a></p>
+                        <p><a href="#">Itinerarios</a></p>
+                        <p><a href="#">Mapas</a></p>
+                        <p><a href="#">Dónde dormir</a></p>
+                        <p><a href="#">Qué comer</a></p>
+                        <p><a href="#">Oficinas de turismo</a></p>
                     </div>
                 </div>
             </div>
@@ -308,9 +359,7 @@
 
             <!-- Bottom Section -->
             <div class="footer-bottom">
-                <div class="row">
-                    <p>&copy; 2025 Turismo de la Comunidad de Madrid. Todos los derechos reservados.</p>
-                </div>
+                <p>&copy; 2025 Turismo de la Comunidad de Madrid. Todos los derechos reservados.</p>
             </div>
         </div>
     </footer>
