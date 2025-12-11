@@ -1,9 +1,14 @@
 :root {
-    --fuente-titulos1: "protipo-condensed-extrabold", sans-serif;
-    --fuente-titulos2: "protipo-condensed-bold", sans-serif;
-    --fuente-texto1: "protipo-semibold", sans-serif;
-    --fuente-texto2: "protipo-regular", sans-serif;
-    --fuente-botones1: "protipo-compact-semibold", sans-serif;
+    --fuente-titulos1: "protipo-compact", sans-serif;
+    --fuente-titulos1-weight: 800;
+    --fuente-titulos2: "protipo-compact", sans-serif;
+    --fuente-titulos2-weight: 700;
+    --fuente-texto1: "protipo", sans-serif;
+    --fuente-texto1-weight: 500;
+    --fuente-texto2: "protipo", sans-serif;
+    --fuente-texto2-weight: 400;
+    --fuente-botones1: "protipo-compact", sans-serif;
+    --fuente-botones1-weight: 500;
     --negro: #000;
     --blanco: #fff;
     --rojo: #DF0029;
@@ -22,13 +27,14 @@ html {
 
 body {
     font-family: var(--fuente-texto2);
+    font-weight: var(--fuente-texto2-weight);
     background-color: var(--blanco);
     color: var(--negro);
 }
 
 p {
     font-family: var(--fuente-texto2);
-    font-weight: 400;
+    font-weight: var(--fuente-texto2-weight);
 }
 
 /* 12-col responsive columns */
@@ -155,8 +161,8 @@ p {
     color: var(--blanco);
     text-decoration: none;
     font-family: var(--fuente-texto2);
+    font-weight: var(--fuente-texto2-weight);
     font-size: 16px;
-    font-weight: bold;
     text-transform: uppercase;
     letter-spacing: 1px;
     transition: opacity 0.3s ease;
@@ -332,8 +338,8 @@ body.menu-open {
 
 .hero-title-line {
     font-family: var(--fuente-titulos1);
+    font-weight: var(--fuente-titulos1-weight);
     font-size: clamp(32px, 5vw, 64px);
-    font-weight: 900;
     line-height: 1.1;
     text-transform: uppercase;
     color: var(--negro);
@@ -348,6 +354,7 @@ body.menu-open {
 .hero-description {
     flex: 1;
     font-family: var(--fuente-texto2);
+    font-weight: var(--fuente-texto2-weight);
     font-size: clamp(16px, 1.8vw, 20px);
     line-height: 1.6;
     color: var(--negro);
@@ -424,8 +431,8 @@ body.menu-open {
     background-color: var(--rojo);
     color: var(--blanco);
     font-family: var(--fuente-titulos2);
+    font-weight: var(--fuente-titulos2-weight);
     font-size: 12px;
-    font-weight: bold;
     padding: 8px 16px;
     border-radius: 4px;
     margin-bottom: 20px;
@@ -437,8 +444,8 @@ body.menu-open {
 
 .card-title {
     font-family: var(--fuente-titulos1);
+    font-weight: var(--fuente-titulos1-weight);
     font-size: 28px;
-    font-weight: 900;
     line-height: 1.2;
     margin-bottom: 16px;
     color: var(--negro);
@@ -448,6 +455,7 @@ body.menu-open {
 
 .card-description {
     font-family: var(--fuente-texto2);
+    font-weight: var(--fuente-texto2-weight);
     font-size: 16px;
     color: var(--negro);
     line-height: 1.6;
@@ -461,8 +469,8 @@ body.menu-open {
     align-items: center;
     text-decoration: none;
     font-family: var(--fuente-texto2);
+    font-weight: var(--fuente-texto2-weight);
     font-size: 14px;
-    font-weight: bold;
     color: var(--negro);
     letter-spacing: 1px;
     transition: color 0.3s;
@@ -530,8 +538,8 @@ body.menu-open {
 
 .section-title {
     font-family: var(--fuente-titulos1);
+    font-weight: var(--fuente-titulos1-weight);
     font-size: clamp(28px, 4vw, 48px);
-    font-weight: 900;
     text-transform: uppercase;
     margin-bottom: 24px;
     line-height: 1.1;
@@ -539,6 +547,7 @@ body.menu-open {
 
 .section-description {
     font-family: var(--fuente-texto1);
+    font-weight: var(--fuente-texto1-weight);
     font-size: clamp(14px, 1.5vw, 16px);
     line-height: 1.6;
     margin-bottom: 50px;
@@ -581,8 +590,8 @@ body.menu-open {
 
 .actividad-image h3 {
     font-family: var(--fuente-titulos2);
+    font-weight: var(--fuente-titulos2-weight);
     font-size: 18px;
-    font-weight: 900;
     text-transform: uppercase;
     color: var(--blanco);
     text-shadow: #000;
@@ -617,8 +626,8 @@ body.menu-open {
 
 .section-title-white {
     font-family: var(--fuente-titulos1);
+    font-weight: var(--fuente-titulos1-weight);
     font-size: clamp(28px, 4vw, 48px);
-    font-weight: 900;
     text-transform: uppercase;
     margin-bottom: 24px;
     color: var(--blanco);
@@ -627,6 +636,7 @@ body.menu-open {
 
 .patrimonio-text {
     font-family: var(--fuente-texto1);
+    font-weight: var(--fuente-texto1-weight);
     font-size: clamp(14px, 1.5vw, 16px);
     line-height: 1.6;
     margin-bottom: 20px;
@@ -685,8 +695,8 @@ body.menu-open {
 
 .visita-card h3 {
     font-family: var(--fuente-titulos2);
+    font-weight: var(--fuente-titulos2-weight);
     font-size: 20px;
-    font-weight: 900;
     text-transform: none;
     color: var(--negro);
     line-height: 1.2;
@@ -781,8 +791,8 @@ body.menu-open {
     background-color: var(--blanco);
     color: var(--negro);
     font-family: var(--fuente-titulos2);
+    font-weight: var(--fuente-titulos2-weight);
     font-size: 12px;
-    font-weight: bold;
     padding: 8px 14px;
     border-radius: 4px;
     text-transform: none;
@@ -792,8 +802,8 @@ body.menu-open {
 
 .evento-destacado h3 {
     font-family: var(--fuente-titulos1);
+    font-weight: var(--fuente-titulos1-weight);
     font-size: 28px;
-    font-weight: 900;
     text-transform: uppercase;
     margin-bottom: 16px;
     line-height: 1.2;
@@ -803,6 +813,7 @@ body.menu-open {
 
 .evento-destacado p {
     font-family: var(--fuente-texto2);
+    font-weight: var(--fuente-texto2-weight);
     font-size: 16px;
     line-height: 1.6;
     margin-bottom: 24px;
@@ -816,8 +827,8 @@ body.menu-open {
     align-items: center;
     text-decoration: none;
     font-family: var(--fuente-texto2);
+    font-weight: var(--fuente-texto2-weight);
     font-size: 14px;
-    font-weight: bold;
     color: var(--blanco);
     letter-spacing: 1px;
     text-transform: uppercase;
@@ -894,14 +905,15 @@ body.menu-open {
 
 .footer h3 {
     font-family: var(--fuente-titulos2);
+    font-weight: var(--fuente-titulos2-weight);
     font-size: 18px;
-    font-weight: bold;
     margin-bottom: 20px;
     color: var(--blanco);
 }
 
 .footer p {
     font-family: var(--fuente-texto2);
+    font-weight: var(--fuente-texto2-weight);
     font-size: 16px;
     line-height: 1.6;
     color: var(--blanco);
@@ -910,6 +922,7 @@ body.menu-open {
 
 .footer a {
     font-family: var(--fuente-texto2);
+    font-weight: var(--fuente-texto2-weight);
     font-size: 16px;
     color: var(--blanco);
     text-decoration: underline;
@@ -972,12 +985,14 @@ body.menu-open {
 
 .footer-logo h1 {
     font-family: var(--fuente-titulos1);
+    font-weight: var(--fuente-titulos1-weight);
     font-size: clamp(28px, 6vw, 56px);
     line-height: 1;
 }
 
 .footer-logo h2 {
     font-family: var(--fuente-titulos1);
+    font-weight: var(--fuente-titulos1-weight);
     font-size: clamp(28px, 6vw, 56px);
     line-height: 1;
 }
@@ -999,6 +1014,7 @@ body.menu-open {
 
 .footer-bottom p {
     font-family: var(--fuente-texto2);
+    font-weight: var(--fuente-texto2-weight);
     font-size: 16px;
     color: var(--blanco);
     margin: 0;
