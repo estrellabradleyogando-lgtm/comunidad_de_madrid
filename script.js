@@ -146,8 +146,22 @@ $(document).ready(function() {
     const totalCards = $cards.length;
     if (totalCards === 0) return;
     
+    function getGap() {
+        return window.innerWidth <= 768 ? 0 : 30;
+    }
+    
+    function getCardsPerView() {
+        if (window.innerWidth <= 768) {
+            return 1; // Always show 1 card on mobile
+        }
+        const viewportWidth = $viewport.width();
+        const cardWidth = $cards.first().outerWidth();
+        const gap = getGap();
+        return Math.floor((viewportWidth + gap) / (cardWidth + gap)) || 1;
+    }
+    
     // Clone cards for infinite loop
-    const cardsPerView = Math.floor(($viewport.width() + 30) / ($cards.first().outerWidth() + 30)) || 1;
+    const cardsPerView = getCardsPerView();
     const clonesToAdd = Math.max(cardsPerView, 2);
     
     // Clone first cards and append to end
@@ -164,8 +178,6 @@ $(document).ready(function() {
     
     // Re-query all cards including clones
     const $allCards = $track.find('.articulo-card');
-    const cardWidth = $allCards.first().outerWidth();
-    const gap = 30;
     
     // Start at the first real card
     let currentIndex = clonesToAdd;
@@ -178,6 +190,8 @@ $(document).ready(function() {
             $track.css('transition', 'transform 0.5s ease');
         }
         
+        const cardWidth = $allCards.first().outerWidth();
+        const gap = getGap();
         const offset = -currentIndex * (cardWidth + gap);
         $track.css('transform', `translateX(${offset}px)`);
         

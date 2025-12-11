@@ -1415,22 +1415,43 @@ body.menu-open {
         transform: translateX(0);
     }
 
+    .articulo-container {
+        padding: 0px 0px 0px;
+    }
+
+    .articulo-container .container {
+        padding: 0 20px;
+    }
+
     .carousel-wrapper {
-        gap: 15px;
+        gap: 10px;
+    }
+
+    .carousel-viewport {
+        width: 100%;
+    }
+
+    .carousel-track {
+        gap: 0;
     }
 
     .articulo-card {
-        flex: 0 0 calc((100% - 30px) / 2);
-        min-width: 280px;
-        height: 600px;
+        flex: 0 0 100%;
+        min-width: 0;
+        width: 100%;
+        height: auto;
+        min-height: 500px;
+        border-radius: 8px;
     }
 
     .card-image-placeholder {
-        height: 240px;
+        height: 200px;
     }
 
     .card-content {
-        height: calc(100% - 240px);
+        height: auto;
+        min-height: calc(500px - 200px);
+        padding: 20px;
     }
 
     .carousel-arrow {
@@ -1439,7 +1460,23 @@ body.menu-open {
     }
     
     .card-title {
-        font-size: 24px;
+        font-size: 22px;
+        margin-bottom: 12px;
+    }
+
+    .card-description {
+        font-size: 14px;
+        margin-bottom: 20px;
+    }
+
+    .articulo-tag {
+        font-size: 11px;
+        padding: 6px 12px;
+        margin-bottom: 16px;
+    }
+
+    .discover-more {
+        font-size: 12px;
     }
     
     .card-description {
