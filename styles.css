@@ -555,7 +555,6 @@ body.menu-open {
     padding: 8px 16px;
     border-radius: 4px;
     margin-bottom: 20px;
-    text-transform: uppercase;
     letter-spacing: 0.5px;
     width: fit-content;
     flex-shrink: 0;
